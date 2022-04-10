@@ -65,26 +65,25 @@ const EditableCell = ({
   value: initialValue,
   row: { index },
   column: { id },
-  updateMyData, // This is a custom function that we supplied to our table instance
+  updateMyData,
 }) => {
-  // We need to keep and update the state of the cell normally
   const [value, setValue] = React.useState(initialValue)
-
-  const onChange = e => {
-    setValue(e.target.value)
-  }
-
-  // We'll only update the external data when the input is blurred
-  const onBlur = () => {
-    updateMyData(index, id, value)
-  }
-
-  // If the initialValue is changed external, sync it up with our state
   React.useEffect(() => {
     setValue(initialValue)
   }, [initialValue])
 
-  return <input value={value} onChange={onChange} onBlur={onBlur} />
+  return (
+    id == 'index'
+    ? <div style={{textAlign: 'center'}}
+        onClick={()=>console.log('jump to')}
+      >
+        {value}
+      </div>
+    : <input value={value} 
+        onChange={e=>setValue(e.target.value)} 
+        onBlur={()=>updateMyData(index, id, value)} 
+      />
+  )
 }
 
 const defaultColumn = {
@@ -92,7 +91,7 @@ const defaultColumn = {
 }
 
 const columns = [
-  { Header: 'Index', accessor: 'index', collapse: true },
+  { Header: '', accessor: 'index', collapse: true },
   { Header: 'Start', accessor: 'start', collapse: true },
   { Header: 'End', accessor: 'end', collapse: true },
   { Header: 'Annotation', accessor: 'text' },
@@ -156,8 +155,8 @@ function AnnoTable({ data, updateMyData, getCellFocusing }) {
                       <td
                         {...cell.getCellProps({
                           className: cell.column.collapse
-                            ? cell.column.Header + '-cell collapse'
-                            : cell.column.Header + '-cell',
+                            ? cell.column.id + '-cell collapse'
+                            : cell.column.id + '-cell',
                           onFocus: () => getCellFocusing(cell.row.index, cell.column.id, cell.value),
                         })}
                       >

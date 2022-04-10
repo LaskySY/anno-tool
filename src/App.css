@@ -28,6 +28,12 @@
   margin:1px
 }
 
-.Index-cell {
+.index-cell {
   pointer-events: none !important;
+}
+
+#toolBtn-group {
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }

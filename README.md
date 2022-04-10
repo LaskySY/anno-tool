@@ -16,7 +16,9 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
   - [x] Test Time Accuracy
   - [x] Paste to the cell
 - [x] Layout
-- [ ] Export data
+- [x] Export data
+- [x] Import data
+  - [ ] Remove Import Label
 - [x] Remove YouTube overlap(By Limit Size)
 - [x] Progress bar
 - [ ] Marker on progress bar
