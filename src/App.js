@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="App row">
-      <h1>{'Ctrl+Space start/pause video, Alt+W fill current video second to Start/End cell'}</h1>
+      <h1>{'Alt+Q start/pause video, Alt+W fill current video second to Start/End cell'}</h1>
       <div className="column">
         <YtVideo
           ref={videoRef}
