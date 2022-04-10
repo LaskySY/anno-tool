@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/anno-tool/static/css/main.f230e85f.css",
+    "main.js": "/anno-tool/static/js/main.cdc6cc64.js",
+    "index.html": "/anno-tool/index.html",
+    "main.f230e85f.css.map": "/anno-tool/static/css/main.f230e85f.css.map",
+    "main.cdc6cc64.js.map": "/anno-tool/static/js/main.cdc6cc64.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f230e85f.css",
+    "static/js/main.cdc6cc64.js"
+  ]
+}
