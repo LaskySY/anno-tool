@@ -22,11 +22,19 @@ function YtVideo({ }, ref) {
     { enableOnTags: ['INPUT'] }
   );
   useHotkeys('ctrl+f',
-    e => { e.preventDefault(); domRef.current.seekTo((status.playedSeconds - 10) / status.duration) },
+    e => {
+      e.preventDefault()
+      setStatus({ ...status, playing: true })
+      domRef.current.seekTo((status.playedSeconds - 10) / status.duration)
+    },
     { enableOnTags: ['INPUT'] }
   );
   useHotkeys('ctrl+j',
-    e => { e.preventDefault(); domRef.current.seekTo((status.playedSeconds + 10) / status.duration) },
+    e => {
+      e.preventDefault()
+      setStatus({ ...status, playing: true })
+      domRef.current.seekTo((status.playedSeconds + 10) / status.duration)
+    },
     { enableOnTags: ['INPUT'] }
   );
 
@@ -36,7 +44,7 @@ function YtVideo({ }, ref) {
   }
   const handleSeekToFromTable = second => {
     domRef.current.seekTo(second / status.duration)
-    setStatus({...status, playing: true})
+    setStatus({ ...status, playing: true })
   }
   const handleProgress = state => {
     setStatus({ ...status, played: state.played, playedSeconds: state.playedSeconds })
