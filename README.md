@@ -15,7 +15,8 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
   - [x] Get current video second
   - [x] Test Time Accuracy
   - [x] Paste to the cell
-- [x] Layout
+- [ ] Layout
+- [ ] Table Width
 - [x] Export data
 - [x] Import data
   - [ ] Remove Import data default Label
