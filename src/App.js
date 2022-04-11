@@ -12,7 +12,7 @@ function App() {
   )
 
   useHotkeys(
-    'cmd+l, ctrl+l',
+    'ctrl+l',
     e => {
       e.preventDefault()
       handleWriteSecond()
@@ -73,7 +73,7 @@ function App() {
         />
       </div>
 
-      <h1>Ctrl(Cmd)+K start/pause video, Ctrl(Cmd)+L fill current video second to Start/End cell</h1>
+      <h1>Ctrl+K start/pause video, Ctrl+L fill current video second to Start/End cell</h1>
 
       <div className="column">
         <YtVideo

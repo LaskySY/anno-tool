@@ -13,7 +13,7 @@ function YtVideo(props, ref) {
     duration: 0
   })
   useHotkeys(
-    'ctrl+k, cmd+k',
+    'ctrl+k',
     e => {
       e.preventDefault();
       setStatus({ ...status, isPlaying: !status.isPlaying })
