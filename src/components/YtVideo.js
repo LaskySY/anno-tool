@@ -13,9 +13,12 @@ function YtVideo(props, ref) {
     duration: 0
   })
   useHotkeys(
-    'alt+q',
-    () => setStatus({ ...status, isPlaying: !status.isPlaying }),
-    { filterPreventDefault: true, enableOnTags: ['INPUT'] }
+    'ctrl+k, cmd+k',
+    e => {
+      e.preventDefault();
+      setStatus({ ...status, isPlaying: !status.isPlaying })
+    },
+    { enableOnTags: ['INPUT'] }
   );
 
   React.useImperativeHandle(ref, () => ({

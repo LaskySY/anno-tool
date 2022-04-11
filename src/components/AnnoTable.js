@@ -73,7 +73,7 @@ const EditableCell = ({
   }, [initialValue])
 
   return (
-    id == 'index'
+    id === 'index'
     ? <div style={{textAlign: 'center'}}
         onClick={()=>console.log('jump to')}
       >
@@ -99,8 +99,11 @@ const columns = [
 
 const pageSizeOptions = [10, 15, 20, 25, 30]
 
-function AnnoTable({ data, updateMyData, getCellFocusing }) {
-
+function AnnoTable({ data, updateMyData }, ref) {
+  const [cellFocus, setCellFocus] = React.useState()
+  React.useImperativeHandle(ref, () => ({
+    cellFocus: cellFocus,
+  }));
   const {
     getTableProps,
     getTableBodyProps,
@@ -157,7 +160,7 @@ function AnnoTable({ data, updateMyData, getCellFocusing }) {
                           className: cell.column.collapse
                             ? cell.column.id + '-cell collapse'
                             : cell.column.id + '-cell',
-                          onFocus: () => getCellFocusing(cell.row.index, cell.column.id, cell.value),
+                          onFocus: () => setCellFocus([cell.row.index, cell.column.id]),
                         })}
                       >
                         {cell.render('Cell')}
@@ -190,4 +193,4 @@ function AnnoTable({ data, updateMyData, getCellFocusing }) {
   )
 }
 
-export default AnnoTable;
+export default React.forwardRef(AnnoTable);

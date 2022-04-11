@@ -5,26 +5,28 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import './App.css'
 
 function App() {
-  var cellFocus = []
+  const tableRef = React.useRef()
   const videoRef = React.useRef()
   const [data, setData] = React.useState(
     [...Array(60).keys()].map(i => ({ index: i + 1, start: '', end: '', text: '' }))
   )
 
   useHotkeys(
-    'alt+w',
-    () => handleWriteSecond(),
-    { filterPreventDefault: true, enableOnTags: ['INPUT'] }
+    'cmd+l, ctrl+l',
+    e => {
+      e.preventDefault()
+      handleWriteSecond()
+    },
+    { enableOnTags: ['INPUT'] }
   );
 
   const handleWriteSecond = () => {
     let second = videoRef.current.seconds.toFixed(3)
     navigator.clipboard.writeText(second)
-    if (cellFocus[1] == 'start' || cellFocus[1] == 'end')
-      updateMyData(cellFocus[0], cellFocus[1], second)
-  }
-  const handleFocusCell = (rowIndex, columnId, value) => {
-    cellFocus = [rowIndex, columnId, value]
+    console.log('Focusing: ', tableRef.current.cellFocus)
+    let cell = tableRef.current.cellFocus
+    if (cell[1] === 'start' || cell[1] === 'end')
+      updateMyData(cell[0], cell[1], second)
   }
   const updateMyData = (rowIndex, columnId, value) => {
     setData(old => old.map((row, index) => {
@@ -50,16 +52,16 @@ function App() {
     const file = document.getElementById('importBtn').files[0]
     let reader = new FileReader();
     reader.readAsText(file);
-    reader.onload = function(){
-      let mask =  [...Array(60).keys()].map(i => ({ index: i + 1, start: '', end: '', text: '' }))
-      let data = reader.result.split("\r\n").filter(e=>e!='')
-      data.forEach( (e, i) => {
+    reader.onload = function () {
+      let mask = [...Array(60).keys()].map(i => ({ index: i + 1, start: '', end: '', text: '' }))
+      let data = reader.result.split("\r\n").filter(e => e !== '')
+      data.forEach((e, i) => {
         let d = e.split('\t')
-        mask[i] = {...mask[i], start:d[0], end:d[1], text:d[2]}
+        mask[i] = { ...mask[i], start: d[0], end: d[1], text: d[2] }
       })
       setData(mask)
     };
-    
+
   }
 
   return (
@@ -71,7 +73,7 @@ function App() {
         />
       </div>
 
-      <h1>Alt+Q start/pause video, Alt+W fill current video second to Start/End cell</h1>
+      <h1>Ctrl(Cmd)+K start/pause video, Ctrl(Cmd)+L fill current video second to Start/End cell</h1>
 
       <div className="column">
         <YtVideo
@@ -80,9 +82,9 @@ function App() {
       </div>
       <div className="column">
         <AnnoTable
+          ref={tableRef}
           data={data}
           updateMyData={updateMyData}
-          getCellFocusing={handleFocusCell}
         />
       </div>
     </div>

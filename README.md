@@ -18,8 +18,13 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Layout
 - [x] Export data
 - [x] Import data
-  - [ ] Remove Import Label
+  - [ ] Remove Import data default Label
 - [x] Remove YouTube overlap(By Limit Size)
 - [x] Progress bar
 - [ ] Marker on progress bar
 - [ ] Jump link on table
+- [ ] Shortcut
+  - [x] Ctrl + l Write Second
+  - [x] Ctrl + k video start/pause
+  - [ ] Ctrl + _ to go back 10 seconds
+  - [ ] Ctrl + _ to go forward 10 seconds
