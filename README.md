@@ -22,7 +22,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Remove YouTube overlap(By Limit Size)
 - [x] Progress bar
 - [ ] Marker on progress bar
-- [ ] Jump link on table
+- [x] Jump button in table
 - [ ] Shortcut
   - [x] Ctrl + l Write Second
   - [x] Ctrl + k video start/pause

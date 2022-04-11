@@ -23,7 +23,6 @@ function App() {
   const handleWriteSecond = () => {
     let second = videoRef.current.seconds.toFixed(3)
     navigator.clipboard.writeText(second)
-    console.log('Focusing: ', tableRef.current.cellFocus)
     let cell = tableRef.current.cellFocus
     if (cell[1] === 'start' || cell[1] === 'end')
       updateMyData(cell[0], cell[1], second)
@@ -85,6 +84,7 @@ function App() {
           ref={tableRef}
           data={data}
           updateMyData={updateMyData}
+          videoSeekTo={s=>videoRef.current.seekTobySeconds(s)}
         />
       </div>
     </div>

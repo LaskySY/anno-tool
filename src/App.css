@@ -28,10 +28,6 @@
   margin:1px
 }
 
-.index-cell {
-  pointer-events: none !important;
-}
-
 #toolBtn-group {
   position: absolute;
   top: 0px;

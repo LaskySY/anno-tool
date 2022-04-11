@@ -22,6 +22,7 @@ function YtVideo(props, ref) {
   );
 
   React.useImperativeHandle(ref, () => ({
+    seekTobySeconds: (s)=>domRef.current.seekTo(s/status.duration),
     seconds: status.playedSeconds,
   }));
 

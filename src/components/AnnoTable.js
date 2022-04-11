@@ -60,36 +60,6 @@ const Styles = styled.div`
   }
 `
 
-// Create an editable cell renderer
-const EditableCell = ({
-  value: initialValue,
-  row: { index },
-  column: { id },
-  updateMyData,
-}) => {
-  const [value, setValue] = React.useState(initialValue)
-  React.useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
-
-  return (
-    id === 'index'
-    ? <div style={{textAlign: 'center'}}
-        onClick={()=>console.log('jump to')}
-      >
-        {value}
-      </div>
-    : <input value={value} 
-        onChange={e=>setValue(e.target.value)} 
-        onBlur={()=>updateMyData(index, id, value)} 
-      />
-  )
-}
-
-const defaultColumn = {
-  Cell: EditableCell,
-}
-
 const columns = [
   { Header: '', accessor: 'index', collapse: true },
   { Header: 'Start', accessor: 'start', collapse: true },
@@ -99,8 +69,39 @@ const columns = [
 
 const pageSizeOptions = [10, 15, 20, 25, 30]
 
-function AnnoTable({ data, updateMyData }, ref) {
+function AnnoTable({ data, updateMyData, videoSeekTo }, ref) {
   const [cellFocus, setCellFocus] = React.useState()
+
+  const EditableCell = ({
+    value: initialValue,
+    row,
+    column: { id },
+    updateMyData,
+  }) => {
+    const [value, setValue] = React.useState(initialValue)
+    React.useEffect(() => {
+      setValue(initialValue)
+    }, [initialValue])
+  
+    return (
+      id === 'index'
+      ? <button style={{textAlign: 'center', width:'100%'}}
+          onClick={()=>videoSeekTo(parseFloat(row.values.start))}
+          disabled={isNaN(parseFloat(row.values.start))}
+        >
+          {value}
+        </button>
+      : <input value={value} 
+          onChange={e=>setValue(e.target.value)} 
+          onBlur={()=>updateMyData(row.index, id, value)} 
+        />
+    )
+  }
+  
+  const defaultColumn = {
+    Cell: EditableCell,
+  }
+
   React.useImperativeHandle(ref, () => ({
     cellFocus: cellFocus,
   }));
