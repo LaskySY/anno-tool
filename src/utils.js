@@ -12,8 +12,12 @@ export const download = data => {
   link.click();
 }
 
-export const upload = (callBack) => {
-  const file = document.getElementById('importBtn').files[0]
+export const upload = () => {
+  document.getElementById("dataLoader").click()
+}
+
+export const loadData = (callBack) => {
+  const file = document.getElementById("dataLoader").files[0]
   let reader = new FileReader();
   reader.readAsText(file);
   reader.onload = function () {
@@ -21,7 +25,7 @@ export const upload = (callBack) => {
     let data = reader.result.split("\r\n").filter(e => e !== '')
     data.forEach((e, i) => {
       let d = e.split('\t')
-      mask[i] = {start: d[0], end: d[1], text: d[2]}
+      mask[i] = { start: d[0], end: d[1], text: d[2] }
     })
     callBack(mask)
   };

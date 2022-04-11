@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTable, usePagination } from 'react-table'
-import { download, upload } from '../utils'
+import { download, upload, loadData } from '../utils'
 import { IndexCell, MainCell } from './cellGenerator'
 
 
@@ -118,10 +118,9 @@ function AnnoTable({ videoSeekTo }, ref) {
   return (
     <Styles>
       <div id='toolBtn-group'>
-        <button className='toolBtn' onClick={() => download(data)}>Export</button>
-        <input id="importBtn" className='toolBtn' type="file"
-          accept=".txt" onChange={() => upload(setData)}
-        />
+        <button onClick={() => download(data)}>Export</button>
+        <button onClick={() => upload()}>Import</button>
+        <input id="dataLoader" type="file" accept=".txt" onChange={()=>loadData(setData)} />
       </div>
       <div className='tableWrap'>
         <table {...getTableProps()}>

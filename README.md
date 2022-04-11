@@ -19,7 +19,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [ ] Table Width
 - [x] Export data
 - [x] Import data
-  - [ ] Remove Import data default Label
+  - [x] Remove Import data default Label
 - [x] Remove YouTube overlap(By Limit Size)
 - [x] Progress bar
 - [x] Jump button in table
