@@ -12,17 +12,21 @@ function YtVideo(props, ref) {
     playedSeconds: 0,
     duration: 0
   })
-  useHotkeys(
-    'ctrl+k',
-    e => {
-      e.preventDefault();
-      setStatus({ ...status, isPlaying: !status.isPlaying })
-    },
+  useHotkeys('ctrl+k',
+    e => { e.preventDefault(); setStatus({ ...status, isPlaying: !status.isPlaying }) },
+    { enableOnTags: ['INPUT'] }
+  );
+  useHotkeys('ctrl+f',
+    e => { e.preventDefault(); domRef.current.seekTo((status.playedSeconds - 10) / status.duration) },
+    { enableOnTags: ['INPUT'] }
+  );
+  useHotkeys('ctrl+j',
+    e => { e.preventDefault(); domRef.current.seekTo((status.playedSeconds + 10) / status.duration) },
     { enableOnTags: ['INPUT'] }
   );
 
   React.useImperativeHandle(ref, () => ({
-    seekTobySeconds: (s)=>domRef.current.seekTo(s/status.duration),
+    seekTobySeconds: (s) => domRef.current.seekTo(s / status.duration),
     seconds: status.playedSeconds,
   }));
 

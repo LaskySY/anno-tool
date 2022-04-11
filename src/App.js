@@ -11,12 +11,8 @@ function App() {
     [...Array(60).keys()].map(i => ({ index: i + 1, start: '', end: '', text: '' }))
   )
 
-  useHotkeys(
-    'ctrl+l',
-    e => {
-      e.preventDefault()
-      handleWriteSecond()
-    },
+  useHotkeys('ctrl+l',
+    e => { e.preventDefault(); handleWriteSecond() },
     { enableOnTags: ['INPUT'] }
   );
 
@@ -84,7 +80,7 @@ function App() {
           ref={tableRef}
           data={data}
           updateMyData={updateMyData}
-          videoSeekTo={s=>videoRef.current.seekTobySeconds(s)}
+          videoSeekTo={s => videoRef.current.seekTobySeconds(s)}
         />
       </div>
     </div>
