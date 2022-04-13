@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useTable, usePagination } from 'react-table'
 import { download, upload, loadData } from '../utils'
 import { IndexCell, MainCell } from './cellGenerator'
-
+import { useHotkeys } from 'react-hotkeys-hook'
 
 const Styles = styled.div`
 
@@ -72,7 +72,10 @@ const columns = [
 
 const pageSizeOptions = [10, 15, 20, 25, 30]
 
-function AnnoTable({ videoSeekTo }, ref) {
+function AnnoTable({ videoRef, videoSeekTo }, ref) {
+
+  const fineTune = 0.2
+  const videoStatus = videoRef.current ? videoRef.current.videoStatus : undefined
   const [cellFocus, setCellFocus] = React.useState()
   const [data, setData] = React.useState(Array(60).fill({ start: '', end: '', text: '' }))
   React.useImperativeHandle(ref, () => ({
@@ -80,6 +83,20 @@ function AnnoTable({ videoSeekTo }, ref) {
     writeShortcutSecond: handleShortcutSecond
   }));
 
+  useHotkeys('up', e => handleFineTune(e, "up"), { enableOnTags: ['INPUT'] })
+  useHotkeys('down', e => handleFineTune(e, "down"), { enableOnTags: ['INPUT'] })
+
+  const handleFineTune = (e, mode) => {
+    if (videoStatus && cellFocus && (cellFocus[1] === 'start' || cellFocus[1] === 'end')) {
+      e.preventDefault()
+      let cellValue = parseFloat(cellFocus[2].value)
+      let nextSec = mode === 'up' ? cellValue + fineTune : cellValue - fineTune
+      // Jumping to the end of less than a second will zero the video progress
+      nextSec = Math.max(0, Math.min(videoStatus.duration-1, nextSec)).toFixed(3)
+      videoSeekTo(nextSec, false)
+      updateData(cellFocus[0], cellFocus[1], nextSec)
+    }
+  }
   const handleShortcutSecond = sec => {
     if (cellFocus && (cellFocus[1] === 'start' || cellFocus[1] === 'end'))
       updateData(cellFocus[0], cellFocus[1], sec)
@@ -120,7 +137,7 @@ function AnnoTable({ videoSeekTo }, ref) {
       <div id='toolBtn-group'>
         <button onClick={() => download(data)}>Export</button>
         <button onClick={() => upload()}>Import</button>
-        <input id="dataLoader" type="file" accept=".txt" onChange={()=>loadData(setData)} />
+        <input id="dataLoader" type="file" accept=".txt" onChange={() => loadData(setData)} />
       </div>
       <div className='tableWrap'>
         <table {...getTableProps()}>
@@ -151,7 +168,7 @@ function AnnoTable({ videoSeekTo }, ref) {
                           className: cell.column.collapse
                             ? cell.column.id + '-cell collapse'
                             : cell.column.id + '-cell',
-                          onFocus: () => setCellFocus([cell.row.index, cell.column.id]),
+                          onFocus: (d) => setCellFocus([cell.row.index, cell.column.id, d.target]),
                           onBlur: () => setCellFocus(),
                         })}
                       >

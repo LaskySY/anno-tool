@@ -13,6 +13,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] seekTo button
   - [x] button jump to start time
   - [ ] auto stop at end time
+  - [x] fine-tune
 ##### Toolbar
 - [x] Export data
   - [ ] Export Rename

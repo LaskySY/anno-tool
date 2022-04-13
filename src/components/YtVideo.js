@@ -7,14 +7,13 @@ function YtVideo({ }, ref) {
   const [videoUrl, setVideoUrl] = React.useState("");
   const [status, setStatus] = React.useState({
     playing: false,
-    seeking: false,
     played: 0,
     playedSeconds: 0,
     duration: 0
   })
   React.useImperativeHandle(ref, () => ({
-    seconds: status.playedSeconds,
-    seekTobySeconds: handleSeekToFromTable,
+    videoStatus: status,
+    videoSeekTo: handleSeekTo,
   }));
 
   useHotkeys('ctrl+k',
@@ -22,19 +21,11 @@ function YtVideo({ }, ref) {
     { enableOnTags: ['INPUT'] }
   );
   useHotkeys('ctrl+f',
-    e => {
-      e.preventDefault()
-      setStatus({ ...status, playing: true })
-      domRef.current.seekTo((status.playedSeconds - 5) / status.duration)
-    },
+    e => { e.preventDefault(); handleSeekTo(status.playedSeconds - 5, true) },
     { enableOnTags: ['INPUT'] }
   );
   useHotkeys('ctrl+j',
-    e => {
-      e.preventDefault()
-      setStatus({ ...status, playing: true })
-      domRef.current.seekTo((status.playedSeconds + 5) / status.duration)
-    },
+    e => { e.preventDefault(); handleSeekTo(status.playedSeconds + 5, true) },
     { enableOnTags: ['INPUT'] }
   );
 
@@ -42,9 +33,15 @@ function YtVideo({ }, ref) {
     e.preventDefault()
     setVideoUrl(e.target.videoURL.value)
   }
-  const handleSeekToFromTable = second => {
-    domRef.current.seekTo(second / status.duration)
-    setStatus({ ...status, playing: true })
+  /**
+ * @param {String|Number} amount time
+ * @param {Boolean} play play after seek
+ * @param {String} type "second" | "fraction"
+ * Note: Jumping to the end of less than a second will zero the video progress
+ */
+  const handleSeekTo = (amount, play, type='seconds') => {
+    domRef.current.seekTo(amount, type)
+    setStatus({ ...status, playing: play })
   }
   const handleProgress = state => {
     setStatus({ ...status, played: state.played, playedSeconds: state.playedSeconds })
@@ -53,7 +50,7 @@ function YtVideo({ }, ref) {
     setStatus({ ...status, duration: duration })
   }
   const handleSeekMouseDown = () => {
-    setStatus({ ...status, playing: false, seeking: true })
+    setStatus({ ...status, playing: false})
   }
   const handleSeekChange = e => {
     setStatus({
@@ -63,8 +60,7 @@ function YtVideo({ }, ref) {
     })
   }
   const handleSeekMouseUp = e => {
-    setStatus({ ...status, playing: true, seeking: false })
-    domRef.current.seekTo(parseFloat(e.target.value))
+    handleSeekTo(parseFloat(e.target.value), true, 'fraction')
   }
 
   return (
