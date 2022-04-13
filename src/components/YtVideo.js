@@ -25,7 +25,7 @@ function YtVideo({ }, ref) {
     e => {
       e.preventDefault()
       setStatus({ ...status, playing: true })
-      domRef.current.seekTo((status.playedSeconds - 10) / status.duration)
+      domRef.current.seekTo((status.playedSeconds - 5) / status.duration)
     },
     { enableOnTags: ['INPUT'] }
   );
@@ -33,7 +33,7 @@ function YtVideo({ }, ref) {
     e => {
       e.preventDefault()
       setStatus({ ...status, playing: true })
-      domRef.current.seekTo((status.playedSeconds + 10) / status.duration)
+      domRef.current.seekTo((status.playedSeconds + 5) / status.duration)
     },
     { enableOnTags: ['INPUT'] }
   );
