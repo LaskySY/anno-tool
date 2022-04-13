@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTable, usePagination } from 'react-table'
-import { download, upload, loadData } from '../utils'
-import { IndexCell, MainCell } from './cellGenerator'
+import { IndexCell, MainCell } from './cells'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 const Styles = styled.div`
@@ -72,14 +71,15 @@ const columns = [
 
 const pageSizeOptions = [10, 15, 20, 25, 30]
 
-function AnnoTable({ videoRef, videoSeekTo }, ref) {
 
+function AnnoTable({ videoRef, videoSeekTo }, ref) {
   const fineTune = 0.2
   const videoStatus = videoRef.current ? videoRef.current.videoStatus : undefined
   const [cellFocus, setCellFocus] = React.useState()
   const [data, setData] = React.useState(Array(60).fill({ start: '', end: '', text: '' }))
   React.useImperativeHandle(ref, () => ({
     data: data,
+    initData: d=>setData(d),
     writeShortcutSecond: handleShortcutSecond
   }));
 
@@ -134,11 +134,6 @@ function AnnoTable({ videoRef, videoSeekTo }, ref) {
 
   return (
     <Styles>
-      <div id='toolBtn-group'>
-        <button onClick={() => download(data)}>Export</button>
-        <button onClick={() => upload()}>Import</button>
-        <input id="dataLoader" type="file" accept=".txt" onChange={() => loadData(setData)} />
-      </div>
       <div className='tableWrap'>
         <table {...getTableProps()}>
           <thead>

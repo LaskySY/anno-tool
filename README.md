@@ -17,6 +17,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 ##### Toolbar
 - [x] Export data
   - [ ] Export Rename
+  - [ ] Export Check
 - [x] Import data
   - [x] Remove default layout
 ##### Shortcut
@@ -24,7 +25,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Ctrl + k video start/pause
 - [x] Ctrl + f to go back 5 seconds
 - [x] Ctrl + j to go forward 5 seconds
-- [ ] Introduction modal
+- [x] Intro box
 ##### Layout
 - [ ] Page layout
 - [ ] Table Width
