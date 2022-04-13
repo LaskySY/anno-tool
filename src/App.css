@@ -29,9 +29,9 @@
 }
 
 #toolBtn-group {
-  position: absolute;
   top: 0px;
-  right: 0px;
+  left: 0px;
+  height: 40px;
 }
 
 #dataLoader {

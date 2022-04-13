@@ -1,8 +1,10 @@
+import React from 'react';
 import YtVideo from './components/YtVideo'
 import AnnoTable from './components/AnnoTable'
-import React from 'react';
+import Toolbar from './components/Toolbar';
 import { useHotkeys } from 'react-hotkeys-hook';
 import './App.css'
+
 
 function App() {
   const tableRef = React.useRef(1)
@@ -20,21 +22,26 @@ function App() {
   }
   
   return (
-    <div className="App row">
-      <h1>Ctrl+K start/pause video, Ctrl+L fill current video second to Start/End cell</h1>
-      <div className="column">
-        <YtVideo
-          ref={videoRef}
-        />
-      </div>
-      <div className="column">
-        <AnnoTable
-          ref={tableRef}
-          videoRef={videoRef}
-          videoSeekTo={(a, p) => videoRef.current.videoSeekTo(a, p)}
-        />
+    <>
+      <Toolbar
+        tableRef={tableRef}
+      />
+      <div className="App row">
+        <div className="column">
+          <YtVideo
+            ref={videoRef}
+          />
+        </div>
+        <div className="column">
+          <AnnoTable
+            ref={tableRef}
+            videoRef={videoRef}
+            videoSeekTo={(a, p) => videoRef.current.videoSeekTo(a, p)}
+          />
       </div>
     </div>
+    </>
+    
   );
 }
 

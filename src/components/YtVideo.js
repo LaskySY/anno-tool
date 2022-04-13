@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player/youtube'
 import { useHotkeys } from 'react-hotkeys-hook';
 
 function YtVideo({ }, ref) {
+  const backForward = 5
   const domRef = React.useRef();
   const [videoUrl, setVideoUrl] = React.useState("");
   const [status, setStatus] = React.useState({
@@ -21,11 +22,11 @@ function YtVideo({ }, ref) {
     { enableOnTags: ['INPUT'] }
   );
   useHotkeys('ctrl+f',
-    e => { e.preventDefault(); handleSeekTo(status.playedSeconds - 5, true) },
+    e => { e.preventDefault(); handleSeekTo(status.playedSeconds - backForward, true) },
     { enableOnTags: ['INPUT'] }
   );
   useHotkeys('ctrl+j',
-    e => { e.preventDefault(); handleSeekTo(status.playedSeconds + 5, true) },
+    e => { e.preventDefault(); handleSeekTo(status.playedSeconds + backForward, true) },
     { enableOnTags: ['INPUT'] }
   );
 
