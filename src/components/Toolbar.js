@@ -9,7 +9,7 @@ function Toolbar({ tableRef }) {
   return <div id='toolBtn-group'>
     <button onClick={() => download(data)}>Export</button>
     <button onClick={() => upload()}>Import</button>
-    <input id="dataLoader" type="file" accept=".txt" onChange={() => loadData(d => tableRef.initData(d))} />
+    <input id="dataLoader" type="file" accept=".txt" onChange={() => loadData(d => tableRef.current.initData(d))} />
     <button onClick={() => setShowShortcutDialog(!showShortcutDialog)}>Shortcut</button>
     <ShortcutDialog status={showShortcutDialog} />
   </div>
