@@ -14,10 +14,6 @@
   clear: both;
 }
 
-.player-wrapper {
-  pointer-events: none !important;
-}
-
 #toolBtn-group {
   top: 0px;
   left: 0px;

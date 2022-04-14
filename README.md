@@ -7,6 +7,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 ##### Player
 - [x] Progress bar
 - [x] Load Youtube video by link
+- [x] Prevent iframe steal focus
 ##### Table
 - [x] pagination
 - [x] Editable cell
@@ -34,5 +35,6 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [ ] audio stream graph
   - [ ] Stream Graph
 - [ ] fine-tuning progressbar
+~~- [ ] Remove Youtube more video~~
 ##### Bug
 - [ ] SeekTo back to begaining when closing end

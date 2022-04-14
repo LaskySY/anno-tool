@@ -48,6 +48,14 @@ function YtVideo({ width }, ref) {
     setStatus({ ...status, playing: play })
     return nextSec
   }
+  const handlePlay = () => {
+    document.getElementsByTagName('iframe')[0].blur()
+    setStatus({ ...status, playing: true })
+  }
+  const handlePause = () => {
+    document.getElementsByTagName('iframe')[0].blur()
+    setStatus({ ...status, playing: false })
+  }
   const handleProgress = state => {
     setStatus({ ...status, played: state.played, playedSeconds: state.playedSeconds })
   }
@@ -69,8 +77,8 @@ function YtVideo({ width }, ref) {
   }
   return (
     <>
-      <form onSubmit={handleVideoId} style={{ marginBottom: 5}}>
-        <input name="videoURL" style={{ width: width - 80, marginRight: 4}} />
+      <form onSubmit={handleVideoId} style={{ marginBottom: 5 }}>
+        <input name="videoURL" style={{ width: width - 80, marginRight: 4 }} />
         <input type="submit" value="Submit" style={{ width: 60 }} />
       </form>
       <div className="player-wrapper" style={{ width: width, height: width * 0.5625 }}>
@@ -81,12 +89,13 @@ function YtVideo({ width }, ref) {
           width='100%'
           height='100%'
           controls={false}
+          onPlay={handlePlay}
+          onPause={handlePause}
           playing={status.playing}
           progressInterval={10}
           onProgress={handleProgress}
           onDuration={handleDuration}
           onError={e => console.log('onError', e)}
-          config={{ youtube: { playerVars: { showinfo: 1 } } }}
         />
       </div>
       <input type="range"
