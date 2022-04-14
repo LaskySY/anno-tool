@@ -11,7 +11,7 @@ function App() {
   const videoRef = React.useRef(1)
   const [data, setData] = React.useState(Array(60).fill({ start: '', end: '', text: '' }))
 
-  useHotkeys('ctrl+l',
+  useHotkeys('\\',
     e => { e.preventDefault(); handleWriteSecond() },
     { enableOnTags: ['INPUT'] }
   );

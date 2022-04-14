@@ -34,3 +34,5 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [ ] audio stream graph
   - [ ] Stream Graph
 - [ ] fine-tuning progressbar
+##### Bug
+- [ ] SeekTo back to begaining when closing end

@@ -17,7 +17,7 @@ function YtVideo({ }, ref) {
     videoSeekTo: handleSeekTo,
   }));
 
-  useHotkeys('ctrl+k',
+  useHotkeys('enter',
     e => { e.preventDefault(); setStatus({ ...status, playing: !status.playing }) },
     { enableOnTags: ['INPUT'] }
   );
