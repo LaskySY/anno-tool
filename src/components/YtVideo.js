@@ -2,7 +2,7 @@ import React from "react";
 import ReactPlayer from 'react-player/youtube'
 import { useHotkeys } from 'react-hotkeys-hook';
 
-function YtVideo({ }, ref) {
+function YtVideo({ width }, ref) {
   const backForward = 5
   const domRef = React.useRef();
   const [videoUrl, setVideoUrl] = React.useState("");
@@ -40,10 +40,10 @@ function YtVideo({ }, ref) {
  * @param {String} type "second" | "fraction"
  * Note: Jumping to the end of less than a second will zero the video progress
  */
-  const handleSeekTo = (amount, play, type='seconds') => {
+  const handleSeekTo = (amount, play, type = 'seconds') => {
     amount = parseFloat(amount)
     // Jumping to the end of less than a second will zero the video progress
-    let nextSec = Math.max(0, Math.min(status.duration-1.8, amount)).toFixed(3)
+    let nextSec = Math.max(0, Math.min(status.duration - 1.8, amount)).toFixed(3)
     domRef.current.seekTo(amount, type)
     setStatus({ ...status, playing: play })
     return nextSec
@@ -55,7 +55,7 @@ function YtVideo({ }, ref) {
     setStatus({ ...status, duration: duration })
   }
   const handleSeekMouseDown = () => {
-    setStatus({ ...status, playing: false})
+    setStatus({ ...status, playing: false })
   }
   const handleSeekChange = e => {
     setStatus({
@@ -67,14 +67,13 @@ function YtVideo({ }, ref) {
   const handleSeekMouseUp = e => {
     handleSeekTo(parseFloat(e.target.value), true, 'fraction')
   }
-
   return (
     <>
-      <form onSubmit={handleVideoId}>
-        <input id="idinputbox" name="videoURL" />
-        <input type="submit" value="Submit" />
+      <form onSubmit={handleVideoId} style={{ marginBottom: 5}}>
+        <input name="videoURL" style={{ width: width - 80, marginRight: 4}} />
+        <input type="submit" value="Submit" style={{ width: 60 }} />
       </form>
-      <div className="player-wrapper">
+      <div className="player-wrapper" style={{ width: width, height: width * 0.5625 }}>
         <ReactPlayer
           ref={domRef}
           url={videoUrl}
@@ -90,8 +89,9 @@ function YtVideo({ }, ref) {
           config={{ youtube: { playerVars: { showinfo: 1 } } }}
         />
       </div>
-      <input id="progressbar"
-        type="range" max={1} step="any"
+      <input type="range"
+        max={1} step="any"
+        style={{ width: width }}
         value={status.played}
         onMouseDown={handleSeekMouseDown}
         onChange={handleSeekChange}

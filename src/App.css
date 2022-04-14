@@ -1,6 +1,11 @@
 .column {
   float: left;
-  width: 50%;
+}
+.column-l {
+  margin-right: 10px;
+}
+.column-r {
+  margin-left: 10px;
 }
 
 .row:after {
@@ -11,28 +16,14 @@
 
 .player-wrapper {
   pointer-events: none !important;
-  width:514px;
-  height: 289px;
-}
-
-#progressbar {
-  width:514px;
-}
-
-#idinputbox {
-  width:430px;
-}
-
-#urlConfirmBtn {
-  width:70px;
-  margin:1px
 }
 
 #toolBtn-group {
   top: 0px;
   left: 0px;
-  height: 40px;
+  height: 30px;
 }
+
 #toolBtn-group>button {
   margin-right: 5px;
 }

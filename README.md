@@ -27,7 +27,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Ctrl + j to go forward 5 seconds
 - [x] Intro box
 ##### Layout
-- [ ] Page layout
+- [x] Page layout
 - [ ] Table Width
 ##### Expect
 - [ ] word suggestion
