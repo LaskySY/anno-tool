@@ -41,8 +41,12 @@ function YtVideo({ }, ref) {
  * Note: Jumping to the end of less than a second will zero the video progress
  */
   const handleSeekTo = (amount, play, type='seconds') => {
+    amount = parseFloat(amount)
+    // Jumping to the end of less than a second will zero the video progress
+    let nextSec = Math.max(0, Math.min(status.duration-1.8, amount)).toFixed(3)
     domRef.current.seekTo(amount, type)
     setStatus({ ...status, playing: play })
+    return nextSec
   }
   const handleProgress = state => {
     setStatus({ ...status, played: state.played, playedSeconds: state.playedSeconds })

@@ -72,36 +72,31 @@ const columns = [
 const pageSizeOptions = [10, 15, 20, 25, 30]
 
 
-function AnnoTable({ videoRef, videoSeekTo }, ref) {
+function AnnoTable({ data, setData, videoSeekTo }, ref) {
   const fineTune = 0.2
-  const videoStatus = videoRef.current ? videoRef.current.videoStatus : undefined
   const [cellFocus, setCellFocus] = React.useState()
-  const [data, setData] = React.useState(Array(60).fill({ start: '', end: '', text: '' }))
+  
   React.useImperativeHandle(ref, () => ({
-    data: data,
-    initData: d=>setData(d),
-    writeShortcutSecond: handleShortcutSecond
+    handleWriteSecond: handleWriteSecond
   }));
 
   useHotkeys('up', e => handleFineTune(e, "up"), { enableOnTags: ['INPUT'] })
   useHotkeys('down', e => handleFineTune(e, "down"), { enableOnTags: ['INPUT'] })
 
   const handleFineTune = (e, mode) => {
-    if (videoStatus && cellFocus && (cellFocus[1] === 'start' || cellFocus[1] === 'end')) {
+    let cellValue = parseFloat(cellFocus[2].value)
+    if (cellFocus && cellValue != NaN && (cellFocus[1] === 'start' || cellFocus[1] === 'end')) {
       e.preventDefault()
-      let cellValue = parseFloat(cellFocus[2].value)
       let nextSec = mode === 'up' ? cellValue + fineTune : cellValue - fineTune
-      // Jumping to the end of less than a second will zero the video progress
-      nextSec = Math.max(0, Math.min(videoStatus.duration-1, nextSec)).toFixed(3)
-      videoSeekTo(nextSec, false)
-      updateData(cellFocus[0], cellFocus[1], nextSec)
+      let afterSeek = videoSeekTo(nextSec, false)
+      updateCell(cellFocus[0], cellFocus[1], afterSeek)
     }
   }
-  const handleShortcutSecond = sec => {
+  const handleWriteSecond = sec => {
     if (cellFocus && (cellFocus[1] === 'start' || cellFocus[1] === 'end'))
-      updateData(cellFocus[0], cellFocus[1], sec)
+      updateCell(cellFocus[0], cellFocus[1], sec)
   }
-  const updateData = (rowIndex, columnId, value) => {
+  const updateCell = (rowIndex, columnId, value) => {
     setData(old => old.map((row, index) => {
       return index === rowIndex ? { ...old[rowIndex], [columnId]: value } : row
     }))
@@ -125,7 +120,7 @@ function AnnoTable({ videoRef, videoSeekTo }, ref) {
       columns,
       data,
       autoResetPage: false,
-      updateData,
+      updateCell,
       videoSeekTo,
       initialState: { pageIndex: 0, pageSize: 15 }
     },

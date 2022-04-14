@@ -13,7 +13,7 @@ export const MainCell = ({
   value: initialValue,
   row,
   column: { id },
-  updateData,
+  updateCell,
 }) => {
   const [value, setValue] = React.useState(initialValue)
   React.useEffect(() => {
@@ -23,7 +23,7 @@ export const MainCell = ({
   return (
     <input value={value}
       onChange={e => setValue(e.target.value)}
-      onBlur={() => updateData(row.index, id, value)}
+      onBlur={() => updateCell(row.index, id, value)}
     />
   )
 }

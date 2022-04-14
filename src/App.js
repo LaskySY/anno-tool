@@ -9,6 +9,7 @@ import './App.css'
 function App() {
   const tableRef = React.useRef(1)
   const videoRef = React.useRef(1)
+  const [data, setData] = React.useState(Array(60).fill({ start: '', end: '', text: '' }))
 
   useHotkeys('ctrl+l',
     e => { e.preventDefault(); handleWriteSecond() },
@@ -17,14 +18,15 @@ function App() {
 
   const handleWriteSecond = () => {
     let second = videoRef.current.videoStatus.playedSeconds.toFixed(3)
-    navigator.clipboard.writeText(second)
-    tableRef.current.writeShortcutSecond(second)
+    // navigator.clipboard.writeText(second)
+    tableRef.current.handleWriteSecond(second)
   }
   
   return (
     <>
       <Toolbar
-        tableRef={tableRef}
+        data={data}
+        initData={setData}
       />
       <div className="App row">
         <div className="column">
@@ -35,7 +37,8 @@ function App() {
         <div className="column">
           <AnnoTable
             ref={tableRef}
-            videoRef={videoRef}
+            data={data}
+            setData={setData}
             videoSeekTo={(a, p) => videoRef.current.videoSeekTo(a, p)}
           />
       </div>
