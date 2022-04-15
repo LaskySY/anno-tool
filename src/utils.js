@@ -23,13 +23,19 @@ export const loadData = (callBack) => {
   let reader = new FileReader();
   reader.readAsText(file);
   reader.onload = function () {
-    let mask = Array(60).fill({ start: '', end: '', text: '' })
-    let data = reader.result.split("\r\n").filter(e => e !== '')
-    data.forEach((e, i) => {
-      let d = e.split('\t')
-      mask[i] = { start: d[0], end: d[1], text: d[2] }
+    let data = reader.result.split("\n").filter(r => r !== '').map(r => {
+      r = r.replace('\r', '')
+      let col = r.split('\t')
+      return { 
+        start: col[0] ? col[0] : '',
+        end: col[1]? col[1] : '', 
+        text: col[2]? col[2] : '',
+      }
     })
-    callBack(mask)
+    callBack(() => {
+      let mask = Array(100).fill({ start: '', end: '', text: '' })
+      return data.concat(mask)
+    })
   };
 }
 

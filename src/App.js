@@ -11,7 +11,7 @@ function App() {
   const tableRef = React.useRef(1)
   const videoRef = React.useRef(1)
   const [width] = useWindowSize();
-  const [data, setData] = React.useState(Array(60).fill({ start: '', end: '', text: '' }))
+  const [data, setData] = React.useState(Array(120).fill({ start: '', end: '', text: '' }))
 
   useHotkeys('\\',
     e => { e.preventDefault(); handleWriteSecond() },

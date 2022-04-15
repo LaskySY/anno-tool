@@ -9,7 +9,7 @@ export const IndexCell = ({ row, videoSeekTo, setStopTime }) => {
         videoSeekTo(parseFloat(row.values.start), true)
       }}
       disabled={isNaN(parseFloat(row.values.start))}
-    >{row.index}</button>
+    >{row.index + 1}</button>
   )
 }
 
