@@ -11,7 +11,7 @@ export const ShortcutDialog = ({ status }) => {
         </thead>
         <tbody>
         <tr>
-            <td>Enter</td>
+            <td>&crarr;</td>
             <td>Start/Pause video</td>
             <td>Page</td>
           </tr>
@@ -31,12 +31,12 @@ export const ShortcutDialog = ({ status }) => {
             <td>Page</td>
           </tr>
           <tr>
-            <td>Up</td>
+            <td>&rarr;</td>
             <td>Time in cell +0.2s</td>
             <td>Start/End</td>
           </tr>
           <tr>
-            <td>Down</td>
+            <td>&larr;</td>
             <td>Time in cell -0.2s</td>
             <td>Start/End</td>
           </tr>

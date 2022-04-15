@@ -80,14 +80,16 @@ function AnnoTable({ data, setData, videoSeekTo }, ref) {
     handleWriteSecond: handleWriteSecond
   }));
 
-  useHotkeys('up', e => handleFineTune(e, "up"), { enableOnTags: ['INPUT'] })
-  useHotkeys('down', e => handleFineTune(e, "down"), { enableOnTags: ['INPUT'] })
+  useHotkeys('left', e => handleFineTune(e, "left"), { enableOnTags: ['INPUT'] })
+  useHotkeys('right', e => handleFineTune(e, "right"), { enableOnTags: ['INPUT'] })
 
   const handleFineTune = (e, mode) => {
     let cellValue = parseFloat(cellFocus[2].value)
-    if (cellFocus && cellValue != NaN && (cellFocus[1] === 'start' || cellFocus[1] === 'end')) {
+    if (cellFocus && cellValue && (cellFocus[1] === 'start' || cellFocus[1] === 'end')) {
       e.preventDefault()
-      let nextSec = mode === 'up' ? cellValue + fineTune : cellValue - fineTune
+      let nextSec = cellValue
+      nextSec += mode === 'right' ? fineTune : 0
+      nextSec += mode === 'left' ?  -fineTune : 0
       let afterSeek = videoSeekTo(nextSec, false)
       updateCell(cellFocus[0], cellFocus[1], afterSeek)
     }
