@@ -42,6 +42,7 @@ function App() {
             ref={tableRef}
             data={data}
             setData={setData}
+            setStopTime={t => videoRef.current.setStopTime(t)}
             videoSeekTo={(a, p) => videoRef.current.videoSeekTo(a, p)}
           />
         </div>

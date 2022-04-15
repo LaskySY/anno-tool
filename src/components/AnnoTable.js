@@ -72,10 +72,10 @@ const columns = [
 const pageSizeOptions = [10, 15, 20, 25, 30]
 
 
-function AnnoTable({ data, setData, videoSeekTo }, ref) {
+function AnnoTable({ data, setData, setStopTime, videoSeekTo }, ref) {
   const fineTune = 0.2
   const [cellFocus, setCellFocus] = React.useState()
-  
+
   React.useImperativeHandle(ref, () => ({
     handleWriteSecond: handleWriteSecond
   }));
@@ -89,7 +89,7 @@ function AnnoTable({ data, setData, videoSeekTo }, ref) {
       e.preventDefault()
       let nextSec = cellValue
       nextSec += mode === 'right' ? fineTune : 0
-      nextSec += mode === 'left' ?  -fineTune : 0
+      nextSec += mode === 'left' ? -fineTune : 0
       let afterSeek = videoSeekTo(nextSec, false)
       updateCell(cellFocus[0], cellFocus[1], afterSeek)
     }
@@ -122,6 +122,7 @@ function AnnoTable({ data, setData, videoSeekTo }, ref) {
       columns,
       data,
       autoResetPage: false,
+      setStopTime,
       updateCell,
       videoSeekTo,
       initialState: { pageIndex: 0, pageSize: 15 }

@@ -3,9 +3,11 @@ import ReactPlayer from 'react-player/youtube'
 import { useHotkeys } from 'react-hotkeys-hook';
 
 function YtVideo({ width }, ref) {
+  let stop = 10
   const backForward = 5
   const domRef = React.useRef();
   const [videoUrl, setVideoUrl] = React.useState("");
+  const [stopTime, setStopTime] = React.useState(Number.POSITIVE_INFINITY)
   const [status, setStatus] = React.useState({
     playing: false,
     played: 0,
@@ -14,6 +16,7 @@ function YtVideo({ width }, ref) {
   })
   React.useImperativeHandle(ref, () => ({
     videoStatus: status,
+    setStopTime: t => setStopTime(t),
     videoSeekTo: handleSeekTo,
   }));
 
@@ -30,10 +33,6 @@ function YtVideo({ width }, ref) {
     { enableOnTags: ['INPUT'] }
   );
 
-  const handleVideoId = e => {
-    e.preventDefault()
-    setVideoUrl(e.target.videoURL.value)
-  }
   /**
  * @param {String|Number} amount time
  * @param {Boolean} play play after seek
@@ -48,6 +47,9 @@ function YtVideo({ width }, ref) {
     setStatus({ ...status, playing: play })
     return nextSec
   }
+  const handleVideoId = e => {
+    setVideoUrl(document.getElementsByName('videoURL')[0].value)
+  }
   const handlePlay = () => {
     document.getElementsByTagName('iframe')[0].blur()
     setStatus({ ...status, playing: true })
@@ -58,6 +60,10 @@ function YtVideo({ width }, ref) {
   }
   const handleProgress = state => {
     setStatus({ ...status, played: state.played, playedSeconds: state.playedSeconds })
+    if (state.playedSeconds >= stopTime) {
+      setStatus({ ...status, playing: false })
+      setStopTime(Number.POSITIVE_INFINITY)
+    }
   }
   const handleDuration = duration => {
     setStatus({ ...status, duration: duration })
@@ -77,15 +83,14 @@ function YtVideo({ width }, ref) {
   }
   return (
     <>
-      <form onSubmit={handleVideoId} style={{ marginBottom: 5 }}>
+      <div style={{ marginBottom: 5 }}>
         <input name="videoURL" style={{ width: width - 80, marginRight: 4 }} />
-        <input type="submit" value="Submit" style={{ width: 60 }} />
-      </form>
+        <button onClick={handleVideoId} style={{ width: 60 }}>Confirm</button>
+      </div>
       <div className="player-wrapper" style={{ width: width, height: width * 0.5625 }}>
         <ReactPlayer
           ref={domRef}
           url={videoUrl}
-          loop={true}
           width='100%'
           height='100%'
           controls={false}

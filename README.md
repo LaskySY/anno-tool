@@ -13,7 +13,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Editable cell
 - [x] seekTo button
   - [x] button jump to start time
-  - [ ] auto stop at end time
+  - [x] auto stop at end time
   - [x] fine-tune
 ##### Toolbar
 - [x] Export data
@@ -31,6 +31,8 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Page layout
 - [ ] Table Width
 ##### Expect
+- [ ] Table add row
+- [ ] Table remove row
 - [ ] word suggestion
 - [ ] audio stream graph
   - [ ] Stream Graph
