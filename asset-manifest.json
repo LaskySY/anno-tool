@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/anno-tool/static/css/main.91973c6a.css",
-    "main.js": "/anno-tool/static/js/main.8282369f.js",
+    "main.js": "/anno-tool/static/js/main.0f08a66b.js",
     "index.html": "/anno-tool/index.html",
     "main.91973c6a.css.map": "/anno-tool/static/css/main.91973c6a.css.map",
-    "main.8282369f.js.map": "/anno-tool/static/js/main.8282369f.js.map"
+    "main.0f08a66b.js.map": "/anno-tool/static/js/main.0f08a66b.js.map"
   },
   "entrypoints": [
     "static/css/main.91973c6a.css",
-    "static/js/main.8282369f.js"
+    "static/js/main.0f08a66b.js"
   ]
 }
