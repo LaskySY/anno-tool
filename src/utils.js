@@ -26,16 +26,13 @@ export const loadData = (callBack) => {
     let data = reader.result.split("\n").filter(r => r !== '').map(r => {
       r = r.replace('\r', '')
       let col = r.split('\t')
-      return { 
+      return {
         start: col[0] ? col[0] : '',
-        end: col[1]? col[1] : '', 
-        text: col[2]? col[2] : '',
+        end: col[1] ? col[1] : '',
+        text: col[2] ? col[2] : '',
       }
     })
-    callBack(() => {
-      let mask = Array(100).fill({ start: '', end: '', text: '' })
-      return data.concat(mask)
-    })
+    callBack(data)
   };
 }
 

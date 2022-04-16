@@ -1,9 +1,11 @@
 .column {
   float: left;
 }
+
 .column-l {
   margin-right: 10px;
 }
+
 .column-r {
   margin-left: 10px;
 }
@@ -26,4 +28,8 @@
 
 #dataLoader {
   display: none;
+}
+
+.pagination>* {
+  margin: 0 2px;
 }

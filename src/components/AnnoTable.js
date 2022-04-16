@@ -98,6 +98,17 @@ function AnnoTable({ data, setData, setStopTime, videoSeekTo }, ref) {
     if (cellFocus && (cellFocus[1] === 'start' || cellFocus[1] === 'end'))
       updateCell(cellFocus[0], cellFocus[1], sec)
   }
+  const handleAddRow = () => {
+    let index = cellFocus[0]
+    cellFocus[2].blur()
+    let emptyRow = { start: '', end: '', text: '' }
+    setData(old => { old.splice(index + 1, 0, emptyRow); return old })
+  }
+  const handleDelRow = () => {
+    let index = cellFocus[0]
+    cellFocus[2].blur()
+    setData(old => { old.splice(index, 1); return old })
+  }
   const updateCell = (rowIndex, columnId, value) => {
     setData(old => old.map((row, index) => {
       return index === rowIndex ? { ...old[rowIndex], [columnId]: value } : row
@@ -176,16 +187,35 @@ function AnnoTable({ data, setData, setStopTime, videoSeekTo }, ref) {
         </table>
 
         <div className="pagination">
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</button>{' '}
-          <button onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</button>{' '}
-          <span>Page{' '}<strong>{pageIndex + 1} of {pageOptions.length}</strong>{' '}</span>
-          <select value={pageSize} onChange={e => { setPageSize(Number(e.target.value)) }} >
+          <button
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >{'<'}</button>
+          <button
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >{'>'}</button>
+          <span><strong>Page: {pageIndex + 1} of {pageOptions.length}</strong></span>
+          <select
+            value={pageSize}
+            onChange={e => { setPageSize(Number(e.target.value)) }}
+          >
             {pageSizeOptions.map(pageSize => (
               <option key={pageSize} value={pageSize}>
                 Show {pageSize}
               </option>
             ))}
           </select>
+          <button
+            style={{ float: 'right' }}
+            onMouseDown={handleAddRow}
+            disabled={!cellFocus}
+          >{'+'}</button>
+          <button
+            style={{ float: 'right' }}
+            onMouseDown={handleDelRow}
+            disabled={!cellFocus}
+          >{'-'}</button>
         </div>
       </div>
     </Styles>
