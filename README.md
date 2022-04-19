@@ -19,7 +19,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Table remove row
 ##### Toolbar
 - [x] Export data
-  - [ ] Export Rename
+  - [x] Export Rename (Currently name is base on youtube url)
   - [ ] Export Check
 - [x] Import data
   - [x] Remove default layout

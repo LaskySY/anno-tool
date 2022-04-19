@@ -23,7 +23,7 @@
 }
 
 #toolBtn-group>button {
-  margin-right: 5px;
+  margin: 0 3px;
 }
 
 #dataLoader {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const download = data => {
+export const download = (data, filename) => {
   let content = data.reduce((acc, cur) => {
     if (cur.start === '' && cur.end === '' && cur.text === '')
       return acc
@@ -9,7 +9,7 @@ export const download = data => {
   let encodedUri = encodeURI(content);
   let link = document.createElement("a");
   link.setAttribute("href", encodedUri);
-  link.setAttribute("download", "anno-text.txt");
+  link.setAttribute("download", filename+".txt");
   document.body.appendChild(link);
   link.click();
 }
@@ -18,7 +18,7 @@ export const upload = () => {
   document.getElementById("dataLoader").click()
 }
 
-export const loadData = (callBack) => {
+export const loadData = (initData, setVideoUrl) => {
   const file = document.getElementById("dataLoader").files[0]
   let reader = new FileReader();
   reader.readAsText(file);
@@ -32,7 +32,8 @@ export const loadData = (callBack) => {
         text: col[2] ? col[2] : '',
       }
     })
-    callBack(data)
+    initData(data)
+    setVideoUrl('v='+file.name.replaceAll(/\.[^.]+|yt_/g, ""))
   };
 }
 

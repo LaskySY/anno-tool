@@ -2,11 +2,9 @@ import React from "react";
 import ReactPlayer from 'react-player/youtube'
 import { useHotkeys } from 'react-hotkeys-hook';
 
-function YtVideo({ width }, ref) {
-  let stop = 10
+function YtVideo({ width, videoUrl}, ref) {
   const backForward = 5
   const domRef = React.useRef();
-  const [videoUrl, setVideoUrl] = React.useState("");
   const [stopTime, setStopTime] = React.useState(Number.POSITIVE_INFINITY)
   const [status, setStatus] = React.useState({
     playing: false,
@@ -15,7 +13,7 @@ function YtVideo({ width }, ref) {
     duration: 0
   })
   React.useImperativeHandle(ref, () => ({
-    videoStatus: status,
+    seconds: status.playedSeconds,
     setStopTime: t => setStopTime(t),
     videoSeekTo: handleSeekTo,
   }));
@@ -46,9 +44,6 @@ function YtVideo({ width }, ref) {
     domRef.current.seekTo(amount, type)
     setStatus({ ...status, playing: play })
     return nextSec
-  }
-  const handleVideoId = e => {
-    setVideoUrl(document.getElementsByName('videoURL')[0].value)
   }
   const handlePlay = () => {
     document.getElementsByTagName('iframe')[0].blur()
@@ -83,10 +78,6 @@ function YtVideo({ width }, ref) {
   }
   return (
     <>
-      <div style={{ marginBottom: 5 }}>
-        <input name="videoURL" style={{ width: width - 80, marginRight: 4 }} />
-        <button onClick={handleVideoId} style={{ width: 60 }}>Confirm</button>
-      </div>
       <div className="player-wrapper" style={{ width: width, height: width * 0.5625 }}>
         <ReactPlayer
           ref={domRef}

@@ -11,6 +11,7 @@ function App() {
   const tableRef = React.useRef(1)
   const videoRef = React.useRef(1)
   const [width] = useWindowSize();
+  const [videoUrl, setVideoUrl] = React.useState("");
   const [data, setData] = React.useState(Array(120).fill({ start: '', end: '', text: '' }))
 
   useHotkeys('\\',
@@ -19,7 +20,7 @@ function App() {
   );
 
   const handleWriteSecond = () => {
-    let second = videoRef.current.videoStatus.playedSeconds.toFixed(3)
+    let second = videoRef.current.seconds.toFixed(3)
     // navigator.clipboard.writeText(second)
     tableRef.current.handleWriteSecond(second)
   }
@@ -27,6 +28,8 @@ function App() {
   return (
     <>
       <Toolbar
+        videoUrl={videoUrl}
+        setVideoUrl={setVideoUrl}
         data={data}
         initData={setData}
       />
@@ -35,6 +38,7 @@ function App() {
           <YtVideo
             ref={videoRef}
             width={coloumnWidth}
+            videoUrl={videoUrl}
           />
         </div>
         <div className="column column-r" style={{ width: coloumnWidth }}>
