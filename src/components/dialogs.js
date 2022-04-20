@@ -45,3 +45,28 @@ export const ShortcutDialog = ({ status }) => {
     </dialog>
   )
 }
+
+export const NoteDialog = ({ status }) => {
+  return (
+    <dialog open hidden={!status}>
+      <table style={{ textAlign: "center", borderSpacing: '30px 0' }}>
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>YouTube URL</td>
+          <td>https://www.youtube.com/watch?v=</td>
+        </tr>
+        <tr>
+          <td>Test ID</td>
+          <td>7JLSZ-FagVc&t</td>
+        </tr>
+        </tbody>
+      </table>
+    </dialog>
+  )
+}

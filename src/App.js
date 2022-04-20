@@ -12,7 +12,7 @@ function App() {
   const videoRef = React.useRef(1)
   const [width] = useWindowSize();
   const [videoUrl, setVideoUrl] = React.useState("");
-  const [data, setData] = React.useState(Array(120).fill({ start: '', end: '', text: '' }))
+  const [data, setData] = React.useState(Array(60).fill({ start: '', end: '', text: '' }))
 
   useHotkeys('\\',
     e => { e.preventDefault(); handleWriteSecond() },
