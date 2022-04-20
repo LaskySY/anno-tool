@@ -24,10 +24,10 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [x] Import data
   - [x] Remove default layout
 ##### Shortcut
-- [x] Ctrl + l Write Second
-- [x] Ctrl + k video start/pause
-- [x] Ctrl + f to go back 5 seconds
-- [x] Ctrl + j to go forward 5 seconds
+- [x] Write Second
+- [x] video start/pause
+- [x] go back 5 seconds
+- [x] go forward 5 seconds
 - [x] Intro box
 ##### Layout
 - [x] Page layout
@@ -37,6 +37,7 @@ Page: [http://Losiyu.github.io/anno-tool](http://Losiyu.github.io/anno-tool)
 - [ ] audio stream graph
   - [ ] Stream Graph
 - [ ] fine-tuning progressbar
+
 ~~- [ ] Remove Youtube more video~~
 ##### Bug
 - [ ] SeekTo back to begaining when closing end
