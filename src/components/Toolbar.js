@@ -6,7 +6,8 @@ function Toolbar({ data, videoUrl, setVideoUrl, initData }) {
   const [showShortcutDialog, setShowShortcutDialog] = React.useState(false)
   const [showNoteDialog, setShowNoteDialog] = React.useState(false)
   // get YouTube video id
-  const videoId = videoUrl.match('(?<=v=)[0-9A-Za-z_-]+')
+  var videoId = videoUrl.match('v=.{11}')
+  videoId = videoId ? videoId[0].substring(2): null
   const handleVideoURL = () => {
     setVideoUrl(document.getElementsByName('videoURL')[0].value)
   }
@@ -20,7 +21,7 @@ function Toolbar({ data, videoUrl, setVideoUrl, initData }) {
     <input name="videoURL" style={{ width: 350, marginRight: 4 }} />
     <button onClick={handleVideoURL} style={{ width: 60 }}>Confirm</button>
     {'|'}
-    <button onClick={() => download(data, videoId ? videoId : '')}>Export</button>
+    <button onClick={() => download(data, videoId ? videoId : 'anno')}>Export</button>
     <button onClick={() => upload(setVideoUrl)}>Import</button>
     {/* This is a hidden node */}
     <input id="dataLoader" type="file" accept=".txt" onChange={handleLoadData} />
